@@ -17,7 +17,7 @@ class Display:
 
     @staticmethod
     def clear():
-        os.system("cls" if os.name == "nt" else "clear")
+        os.system("cls" if os.name == "nt" else "clear 2>/dev/null")
 
     @staticmethod
     def narrate(text: str, delay: float = 0.03) -> None:
@@ -34,22 +34,13 @@ class Display:
 
     @staticmethod
     def show_stats(character) -> None:
-        bar_len = 10
-
-        def bar(value, max_val=20):
-            filled = int(value / max_val * bar_len)
-            return "█" * filled + "░" * (bar_len - filled)
-
-        print(f"\n{Display.YELLOW}╔{'═' * 32}╗")
-        print(f"║  {Display.BOLD}{character.name} — Стати{Display.RESET}{Display.YELLOW}{'':>12}║")
-        print(f"╠{'═' * 32}╣{Display.RESET}")
-        print(f"{Display.YELLOW}║{Display.RESET}  Ніндзюцу:  {Display.RED}{bar(character.ninjutsu)}{Display.RESET} {character.ninjutsu:>2}  {Display.YELLOW}║{Display.RESET}")
-        print(f"{Display.YELLOW}║{Display.RESET}  Гендзюцу:  {Display.MAGENTA}{bar(character.genjutsu)}{Display.RESET} {character.genjutsu:>2}  {Display.YELLOW}║{Display.RESET}")
-        print(f"{Display.YELLOW}║{Display.RESET}  Інтелект:  {Display.CYAN}{bar(character.intelligence)}{Display.RESET} {character.intelligence:>2}  {Display.YELLOW}║{Display.RESET}")
-        print(f"{Display.YELLOW}║{Display.RESET}  Рішучість: {Display.GREEN}{bar(character.resolve)}{Display.RESET} {character.resolve:>2}  {Display.YELLOW}║{Display.RESET}")
-        print(f"{Display.YELLOW}╠{'═' * 32}╣")
-        print(f"║  Сила: {character.get_power_level()}{'':<24}║")
-        print(f"╚{'═' * 32}╝{Display.RESET}\n")
+        print(f"\n  {character.name} — Стати")
+        print(f"  Ніндзюцу:  {'█' * character.ninjutsu}{'░' * (20 - character.ninjutsu)} {character.ninjutsu}/20")
+        print(f"  Гендзюцу:  {'█' * character.genjutsu}{'░' * (20 - character.genjutsu)} {character.genjutsu}/20")
+        print(
+            f"  Інтелект:  {'█' * character.intelligence}{'░' * (20 - character.intelligence)} {character.intelligence}/20")
+        print(f"  Рішучість: {'█' * character.resolve}{'░' * (20 - character.resolve)} {character.resolve}/20")
+        print(f"  Сила: {character.get_power_level()}\n")
 
     @staticmethod
     def chapter_title(title: str) -> None:

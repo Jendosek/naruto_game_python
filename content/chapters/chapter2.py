@@ -1,6 +1,6 @@
 from content.chapters.base import Chapter
 from content.dialogues import CHAPTER_2
-
+from engine.combat import TaijutsuAttack, GenjutsuAttack, ShurikenAttack
 
 class Chapter2(Chapter):
     def intro(self):
@@ -30,7 +30,7 @@ class Chapter2(Chapter):
         battle_won = self.combat.run_battle(
             player=self.character,
             enemy=enemy_data,
-            available_attacks=["taijutsu", "genjutsu", "shuriken"]
+            available_attacks=[TaijutsuAttack(), GenjutsuAttack(), ShurikenAttack()]
         )
 
         if battle_won:

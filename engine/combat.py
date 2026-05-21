@@ -6,19 +6,16 @@ from engine.display import Display
 
 
 class AttackStrategy(ABC):
-    """Базова стратегія атаки (Strategy pattern)."""
 
     name: str = "Attack"
     description: str = ""
 
     @abstractmethod
     def execute(self, attacker: Character, defender: dict) -> dict:
-        """Повертає {"damage": int, "message": str}."""
         pass
 
 
 class TaijutsuAttack(AttackStrategy):
-    """Фізична атака. Шкода залежить від ninjutsu."""
 
     name = "Тайдзюцу"
     description = "Фізичний удар кунаєм"
@@ -30,15 +27,12 @@ class TaijutsuAttack(AttackStrategy):
 
 
 class GenjutsuAttack(AttackStrategy):
-    """Ілюзія. Високий урон, залежить від genjutsu."""
-
     name = "Гендзюцу"
     description = "Пастка ілюзій"
 
     def execute(self, attacker: Character, defender: dict) -> dict:
         base_damage = attacker.genjutsu * 3 + random.randint(-3, 4)
         damage = max(1, base_damage)
-        # Бонус якщо weakness ворога — genjutsu
         if defender.get("weakness") == "genjutsu":
             damage = int(damage * 1.5)
             return {"damage": damage, "message": "Гендзюцу... Ворог повністю в ілюзії! Критичний удар!"}
@@ -46,7 +40,6 @@ class GenjutsuAttack(AttackStrategy):
 
 
 class ShurikenAttack(AttackStrategy):
-    """Далекобійна атака. Залежить від ninjutsu + intelligence."""
 
     name = "Шурікендзюцу"
     description = "Шурікени з тіні"
@@ -62,9 +55,8 @@ class TsukuyomiAttack(AttackStrategy):
     description = "Абсолютна ілюзія Мангек'ю Шарінгану"
 
     def execute(self, attacker: Character, defender: dict) -> dict:
-        # Масивний урон, але і гравець втрачає HP (ціна Мангек'ю)
         damage = attacker.genjutsu * 5
-        attacker.hp -= 15  # Ціна використання
+        attacker.hp -= 15
         return {
             "damage": damage,
             "message": "М А Н Г Е К ' Ю   Ш А Р І Н Г А Н: Ц У К У Й О М І !\n"
@@ -92,23 +84,22 @@ class CombatSystem:
         display.narrate(f"⚔  Бій: {player.name} vs {enemy_name}  ⚔")
         print()
 
-        # Підказка якщо intelligence високий
         if show_hints and player.intelligence >= 8 and enemy.get("weakness"):
             print(f"  {Display.CYAN}[Шарінган бачить]: слабкість ворога — {enemy['weakness']}{Display.RESET}\n")
 
         turn = 1
         while player.hp > 0 and enemy_hp > 0:
-            # Статус
+
             print(f"  {Display.GREEN}{player.name}: {player.hp} HP{Display.RESET}  |  "
                   f"{Display.RED}{enemy_name}: {enemy_hp} HP{Display.RESET}")
             print(f"  {Display.DIM}--- Хід {turn} ---{Display.RESET}")
 
-            # Вибір атаки
+
             attack_options = [f"{a.name} — {a.description}" for a in available_attacks]
             idx = display.choice(attack_options)
             attack = available_attacks[idx]
 
-            # Атака гравця
+
             result = attack.execute(player, enemy)
             enemy_hp -= result["damage"]
             print(f"\n  {Display.YELLOW}► {result['message']}{Display.RESET}")
@@ -118,7 +109,7 @@ class CombatSystem:
             if enemy_hp <= 0:
                 break
 
-            # Атака ворога
+
             enemy_damage = enemy_atk + random.randint(-3, 3)
             enemy_damage = max(1, enemy_damage)
             player.hp -= enemy_damage
@@ -128,7 +119,7 @@ class CombatSystem:
 
             turn += 1
 
-        # Результат
+
         display.separator()
         if player.hp > 0:
             display.narrate(f"✦ {enemy_name} повалений.")
