@@ -1,6 +1,6 @@
 from content.chapters.base import Chapter
 from content.dialogues import CHAPTER_3
-
+from engine.combat import TaijutsuAttack, ShurikenAttack, GenjutsuAttack, TsukuyomiAttack
 
 class Chapter3(Chapter):
     def intro(self):
@@ -12,11 +12,11 @@ class Chapter3(Chapter):
     def gameplay(self):
         self.display.narrate(CHAPTER_3["combat_intro"])
 
-        available_attacks = ["taijutsu", "shuriken", "fireball"]
+        available_attacks = [TaijutsuAttack(), ShurikenAttack(), GenjutsuAttack()]
 
         if self.character.genjutsu >= 15:
             self.display.narrate(CHAPTER_3["tsukuyomi_unlocked"])
-            available_attacks.append("tsukuyomi")
+            available_attacks.append(TsukuyomiAttack())
 
         enemy_data = {"name": "Учіха Саске", "hp": 200, "damage": 20}
 

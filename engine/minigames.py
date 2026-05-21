@@ -22,18 +22,18 @@ class MiniGames:
             print(f" {s} ", end="")
             sys.stdout.flush()
             time.sleep(0.6)
-        print(Display.RESET)
+        print(Display.RESET, end="")
+        sys.stdout.flush()
 
         time.sleep(1.5)
 
-        # Стираємо (друкуємо порожні рядки)
-        print(f"\n  {Display.DIM}Послідовність зникла...{Display.RESET}\n")
+        print(f"\r\033[2K  {Display.DIM}Послідовність зникла...{Display.RESET}\n")
         time.sleep(0.5)
 
-        # Показуємо доступні символи
+
         unique = list(set(sequence))
         random.shuffle(unique)
-        # Додаємо пару зайвих для складності
+
         extras = [s for s in symbols if s not in unique]
         if extras:
             unique.extend(random.sample(extras, min(2, len(extras))))
@@ -70,7 +70,7 @@ class MiniGames:
             if random.random() < difficulty / grid_size:
                 patrols.append(random.choice(directions))
             else:
-                patrols.append(None)  # Безпечний крок
+                patrols.append(None)
 
         print(f"\n  {Display.CYAN}Стелс-місія. {grid_size} кроків до цілі.{Display.RESET}")
         print(f"  {Display.DIM}На кожному кроці вибери напрямок. Уникай патрулів.{Display.RESET}\n")
@@ -110,7 +110,6 @@ class MiniGames:
         if time_limit > 0:
             print(f"  {Display.RED}У тебе {time_limit} секунд!{Display.RESET}")
 
-            # Простий таймер — якщо не встиг, випадковий вибір
             result = [None]
 
             def get_input():
