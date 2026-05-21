@@ -19,19 +19,19 @@ class Chapter(ABC):
         self.minigames = minigames
         self.display = display
 
-    def play(self) -> None:
+    def play(self):
         self.intro()
         self.gameplay()
         self.finale()
 
     @abstractmethod
-    def intro(self) -> None:
+    def intro(self):
         pass
 
     @abstractmethod
-    def gameplay(self) -> None:
+    def gameplay(self):
         pass
 
     @abstractmethod
-    def finale(self) -> None:
+    def finale(self):
         pass

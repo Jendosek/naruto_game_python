@@ -23,7 +23,6 @@ class Chapter2(Chapter):
             self.character.hp -= 15
             self.character.boost("resolve", -1)
 
-        # Бойова сцена
         self.display.narrate(CHAPTER_2["combat_intro"])
         enemy_data = {"name": "Учіха Яшіро", "hp": 50, "damage": 10}
 

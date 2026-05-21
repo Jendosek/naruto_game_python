@@ -8,7 +8,7 @@ from engine.display import Display
 class MiniGames:
 
     @staticmethod
-    def sequence_memory(length: int, symbols: list[str] | None = None) -> int:
+    def sequence_memory(length, symbols = None):
         if symbols is None:
             symbols = ["☆", "✦", "◈", "⬡", "△", "○", "□"]
 
@@ -62,7 +62,7 @@ class MiniGames:
         return correct
 
     @staticmethod
-    def stealth_run(difficulty: int, grid_size: int = 5) -> bool:
+    def stealth_run(difficulty, grid_size = 5):
         directions = ["ліво", "прямо", "право"]
 
         patrols = []
@@ -104,7 +104,7 @@ class MiniGames:
             return False
 
     @staticmethod
-    def quick_choice(question: str, options: list[str], time_limit: int = 0) -> int:
+    def quick_choice(question, options, time_limit = 0):
         print(f"\n  {Display.BOLD}{question}{Display.RESET}")
 
         if time_limit > 0:

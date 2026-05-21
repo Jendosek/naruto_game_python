@@ -13,7 +13,6 @@ class Chapter1(Chapter):
 
         score = self.minigames.sequence_memory(5)
 
-        # Наслідки міні-гри
         if score >= 4:
             self.display.narrate(CHAPTER_1["minigame_win"])
             self.character.boost("intelligence", 3)
@@ -25,7 +24,6 @@ class Chapter1(Chapter):
     def finale(self):
         self.display.narrate(CHAPTER_1["finale_intro"])
 
-        # Тест АНБУ - Питання 1
         choice_1 = self.minigames.quick_choice(
             CHAPTER_1["anbu_q1"],
             CHAPTER_1["anbu_a1"]
@@ -45,7 +43,7 @@ class Chapter1(Chapter):
             CHAPTER_1["anbu_a2"]
         )
 
-        if choice_2 == 0:  # Хокаге
+        if choice_2 == 0:
             self.character.boost("intelligence", 1)
         elif choice_2 == 1:  # Розмова
             self.character.boost("genjutsu", 2)

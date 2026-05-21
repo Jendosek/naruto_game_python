@@ -1,6 +1,5 @@
 import sys
 import time
-import os
 
 
 class Display:
@@ -16,11 +15,7 @@ class Display:
     RESET = "\033[0m"
 
     @staticmethod
-    def clear():
-        os.system("cls" if os.name == "nt" else "clear 2>/dev/null")
-
-    @staticmethod
-    def narrate(text: str, delay: float = 0.03) -> None:
+    def narrate(text, delay = 0.03):
         for char in text:
             sys.stdout.write(char)
             sys.stdout.flush()
@@ -28,12 +23,12 @@ class Display:
         print()
 
     @staticmethod
-    def dialogue(speaker: str, text: str) -> None:
+    def dialogue(speaker, text):
         print(f"\n{Display.CYAN}[{speaker}]{Display.RESET}: {text}")
         time.sleep(0.5)
 
     @staticmethod
-    def show_stats(character) -> None:
+    def show_stats(character):
         print(f"\n  {character.name} — Стати")
         print(f"  Ніндзюцу:  {'█' * character.ninjutsu}{'░' * (20 - character.ninjutsu)} {character.ninjutsu}/20")
         print(f"  Гендзюцу:  {'█' * character.genjutsu}{'░' * (20 - character.genjutsu)} {character.genjutsu}/20")
@@ -43,7 +38,7 @@ class Display:
         print(f"  Сила: {character.get_power_level()}\n")
 
     @staticmethod
-    def chapter_title(title: str) -> None:
+    def chapter_title(title):
         width = len(title) + 8
         print(f"\n{Display.RED}{Display.BOLD}")
         print(f"{'─' * width}")
@@ -53,7 +48,7 @@ class Display:
         time.sleep(1)
 
     @staticmethod
-    def choice(options: list[str]) -> int:
+    def choice(options):
         print()
         for i, option in enumerate(options, 1):
             print(f"  {Display.YELLOW}[{i}]{Display.RESET} {option}")
@@ -70,9 +65,9 @@ class Display:
                 print(f"  Введи число від 1 до {len(options)}")
 
     @staticmethod
-    def separator() -> None:
+    def separator():
         print(f"\n{Display.DIM}{'─' * 40}{Display.RESET}\n")
 
     @staticmethod
-    def pause(message: str = "Натисни Enter щоб продовжити...") -> None:
+    def pause(message: str = "Натисни Enter щоб продовжити..."):
         input(f"\n{Display.DIM}{message}{Display.RESET}")

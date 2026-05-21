@@ -11,7 +11,7 @@ class AttackStrategy(ABC):
     description: str = ""
 
     @abstractmethod
-    def execute(self, attacker: Character, defender: dict) -> dict:
+    def execute(self, attacker, defender):
         pass
 
 
@@ -20,7 +20,7 @@ class TaijutsuAttack(AttackStrategy):
     name = "Тайдзюцу"
     description = "Фізичний удар кунаєм"
 
-    def execute(self, attacker: Character, defender: dict) -> dict:
+    def execute(self, attacker, defender):
         base_damage = attacker.ninjutsu * 2 + random.randint(-2, 3)
         damage = max(1, base_damage)
         return {"damage": damage, "message": "Швидкий удар кунаєм!"}
@@ -30,7 +30,7 @@ class GenjutsuAttack(AttackStrategy):
     name = "Гендзюцу"
     description = "Пастка ілюзій"
 
-    def execute(self, attacker: Character, defender: dict) -> dict:
+    def execute(self, attacker, defender):
         base_damage = attacker.genjutsu * 3 + random.randint(-3, 4)
         damage = max(1, base_damage)
         if defender.get("weakness") == "genjutsu":
@@ -44,7 +44,7 @@ class ShurikenAttack(AttackStrategy):
     name = "Шурікендзюцу"
     description = "Шурікени з тіні"
 
-    def execute(self, attacker: Character, defender: dict) -> dict:
+    def execute(self, attacker, defender):
         base_damage = attacker.ninjutsu + attacker.intelligence + random.randint(-2, 2)
         damage = max(1, base_damage)
         return {"damage": damage, "message": "Шурікени летять з мертвої зони!"}
@@ -54,7 +54,7 @@ class TsukuyomiAttack(AttackStrategy):
     name = "Цукуйомі"
     description = "Абсолютна ілюзія Мангек'ю Шарінгану"
 
-    def execute(self, attacker: Character, defender: dict) -> dict:
+    def execute(self, attacker, defender):
         damage = attacker.genjutsu * 5
         attacker.hp -= 15
         return {

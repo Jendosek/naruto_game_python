@@ -9,7 +9,6 @@ from content.chapters.chapter3 import Chapter3
 
 def main():
     display = Display()
-    display.clear()
 
     display.chapter_title("ITACHI: PATH OF SACRIFICE")
     display.narrate("Шлях шінобі — це шлях жертв.")
@@ -27,7 +26,6 @@ def main():
     ]
 
     for i, chapter in enumerate(chapters):
-        display.clear()
         chapter.play()
         display.show_stats(character)
         if i < len(chapters) - 1:
@@ -47,6 +45,4 @@ def main():
     display.narrate(f"\n  — Учіха Ітачі")
     print()
 
-
-if __name__ == "__main__":
-    main()
+main()
